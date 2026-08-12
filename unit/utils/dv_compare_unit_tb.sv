@@ -15,10 +15,13 @@ module dv_compare_unit_tb;
   dv_compare_result_t res;
 
   initial begin
-    // masked 比较
-    if (!dv_compare_masked(64'h0000_0000_00FF_FFFF, 64'h0000_0000_00AA_FFFF,
-                           64'h0000_0000_00FF_0000, DV_XZ_TREAT_AS_DONTCARE))
-      errors++;
+    // masked 比较：mask 覆盖 [31:16]，低位差异被屏蔽
+    if (!dv_compare_masked(64'h0000_0000_ABCD_1234, 64'h0000_0000_ABCD_5678,
+                           64'h0000_0000_FFFF_0000, DV_XZ_TREAT_AS_DONTCARE))
+      errors++;  // 低位不同但被屏蔽，应匹配
+    if (dv_compare_masked(64'h0000_0000_ABCD_1234, 64'h0000_0000_ABBD_1234,
+                          64'h0000_0000_FFFF_0000, DV_XZ_TREAT_AS_DONTCARE))
+      errors++;  // [31:16] 不同，应不匹配
 
     // tolerance 比较
     if (!dv_compare_tolerance(100, 105, 5)) errors++;
@@ -28,11 +31,11 @@ module dv_compare_unit_tb;
     if (!dv_compare_float(1.0, 1.05, 0.0, 0.1)) errors++;
     if (dv_compare_float(1.0, 1.2, 0.0, 0.1)) errors++;
 
-    // wildcard：X 视作 don't care
+    // wildcard：exp 中的 X 视作 don't care（hex 末位 X = 整个 nibble 为 X）
     if (!dv_compare_wildcard(64'h0000_0000_0000_00X0, 64'h0000_0000_0000_00A0))
-      errors++;
-    if (dv_compare_wildcard(64'h0000_0000_0000_0010, 64'h0000_0000_0000_00A0))
-      errors++;
+      errors++;  // 差异仅在 exp 的 X nibble（bits[7:4]），应匹配
+    if (dv_compare_wildcard(64'h0000_0000_0000_00X0, 64'h0000_0000_0000_00A1))
+      errors++;  // bit0 不同（exp bit0=0，act bit0=1），应不匹配
 
     // 结构化 diff
     fields = {fields, "a", "b"};

@@ -24,10 +24,10 @@ module dv_memory_unit_tb;
     if (!mem.read(100, d)) errors++;
     if (d !== 64'h0000_0000_0000_DEAD) errors++;
 
-    // 再写高字节，低字节保留
-    mem.write(100, 64'h0000_0000_BEEF_0000, 8'hF0);
+    // 再写高字节（bytes 4~7，即 bits[63:32]），低字节保留
+    mem.write(100, 64'hBEEF_0000_0000_0000, 8'hF0);
     if (!mem.read(100, d)) errors++;
-    if (d !== 64'h0000_0000_BEEF_DEAD) errors++;
+    if (d !== 64'hBEEF_0000_0000_DEAD) errors++;
 
     // init_all
     mem.init_all(64'hAA55);

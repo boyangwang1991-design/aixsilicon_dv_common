@@ -88,7 +88,7 @@ package dv_config_pkg;
         set("run.seed", $sformatf("%0d", m_run_cfg.seed), DV_CFG_SRC_CLI_OVERRIDE, "+seed");
       if ($value$plusargs("verbosity=%0d", m_run_cfg.verbosity))
         set("run.verbosity", $sformatf("%0d", m_run_cfg.verbosity), DV_CFG_SRC_CLI_OVERRIDE, "+verbosity");
-      if ($value$plusargs("wave", s))
+      if ($test$plusargs("wave"))
         begin
           m_run_cfg.enable_wave = 1;
           set("run.wave", "1", DV_CFG_SRC_CLI_OVERRIDE, "+wave");

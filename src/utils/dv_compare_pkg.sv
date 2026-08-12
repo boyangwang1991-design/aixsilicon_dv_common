@@ -49,7 +49,12 @@ package dv_compare_pkg;
     logic [63:0] e = exp & mask;
     logic [63:0] a = act & mask;
     if (xz_policy == DV_XZ_TREAT_AS_DONTCARE) begin
-      e = e & ~(e ^ e); // no-op，实际由调用方先屏蔽 X
+      // 4 态逐位比较，exp 中 X/Z 位视为匹配
+      for (int i = 0; i < 64; i++) begin
+        if (e[i] === 1'bx || e[i] === 1'bz) continue;
+        if (a[i] !== e[i]) return 0;
+      end
+      return 1;
     end
     return (e === a);
   endfunction
@@ -84,14 +89,9 @@ package dv_compare_pkg;
   function automatic bit dv_compare_wildcard(
       input  logic [63:0] exp,
       input  logic [63:0] act);
-    logic [63:0] mask = ~(exp ^ exp); // 占位，正式实现需处理 4 态
-    // 简化：逐位 4 态比较，exp 中 X/Z 视为任意
     for (int i = 0; i < 64; i++) begin
-      logic e_bit, a_bit;
-      e_bit = exp[i];
-      a_bit = act[i];
-      if (e_bit === 1'bx || e_bit === 1'bz) continue;
-      if (a_bit !== e_bit) return 0;
+      if (exp[i] === 1'bx || exp[i] === 1'bz) continue;
+      if (act[i] !== exp[i]) return 0;
     end
     return 1;
   endfunction
@@ -115,9 +115,10 @@ package dv_compare_pkg;
       d.expected = expected[i];
       d.actual   = actual[i];
       d.matched  = (expected[i] === actual[i]);
-      if (!d.matched)
+      if (!d.matched) begin
         res.all_matched = 0;
-      res.diffs.push_back(d);
+        res.diffs.push_back(d);  // 仅记录不匹配字段
+      end
     end
     return res;
   endfunction

@@ -38,7 +38,7 @@ targets:
     filesets:
       - files_types
     parameters:
-      - DV_LINT_MODE=1
+      - DV_LINT_MODE=true
 
   compile:
     description: 最小编译（elaboration 之前）

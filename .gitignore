@@ -27,6 +27,7 @@ xsim.dir/
 # 工具缓存
 .fusesoc/
 .edalize/
+.vcs_unit/
 .cache/
 *.pyc
 __pycache__/

@@ -79,4 +79,12 @@ targets:
     toplevel:
       - dv_minimal_test_top
     parameters:
-      - DV_MINIMAL_SMOKE=1
+      - DV_MINIMAL_SMOKE=true
+    tools:
+      vcs:
+        vcs_options:
+          - -sverilog
+          - -full64
+          - -ntb_opts
+          - uvm-1.2
+          - -timescale=1ns/1ps

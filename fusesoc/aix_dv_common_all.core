@@ -38,6 +38,11 @@ filesets:
       - ../examples/minimal_uvm/dv_minimal_test.sv
       - ../examples/minimal_uvm/dv_minimal_test_top.sv
 
+  files_rtl_test:
+    file_type: systemVerilogSource
+    files:
+      - ../tests/smoke/dv_rtl_smoke_tb.sv
+
 parameters:
   DV_MINIMAL_SMOKE:
     datatype: bool
@@ -56,12 +61,28 @@ targets:
     filesets:
       - files_rtl
       - files_dpi_include
+    tools:
+      vcs:
+        vcs_options:
+          - -sverilog
+          - -full64
+          - -ntb_opts
+          - uvm-1.2
+          - -timescale=1ns/1ps
 
   compile:
     description: 最小编译
     filesets:
       - files_rtl
       - files_dpi_include
+    tools:
+      vcs:
+        vcs_options:
+          - -sverilog
+          - -full64
+          - -ntb_opts
+          - uvm-1.2
+          - -timescale=1ns/1ps
 
   smoke:
     description: 聚合基本运行（minimal UVM example）
@@ -72,10 +93,42 @@ targets:
     toplevel:
       - dv_minimal_test_top
     parameters:
-      - DV_MINIMAL_SMOKE=1
+      - DV_MINIMAL_SMOKE=true
+    tools:
+      vcs:
+        vcs_options:
+          - -sverilog
+          - -full64
+          - -ntb_opts
+          - uvm-1.2
+          - -timescale=1ns/1ps
+
+  rtl_smoke:
+    description: RTL 模块 smoke（clk/rst/timeout）
+    filesets:
+      - files_rtl
+      - files_rtl_test
+    toplevel:
+      - dv_rtl_smoke_tb
+    tools:
+      vcs:
+        vcs_options:
+          - -sverilog
+          - -full64
+          - -ntb_opts
+          - uvm-1.2
+          - -timescale=1ns/1ps
 
   package:
     description: 发布检查（Core 元数据校验）
     filesets:
       - files_rtl
       - files_dpi_include
+    tools:
+      vcs:
+        vcs_options:
+          - -sverilog
+          - -full64
+          - -ntb_opts
+          - uvm-1.2
+          - -timescale=1ns/1ps

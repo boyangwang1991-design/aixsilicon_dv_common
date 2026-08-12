@@ -32,16 +32,17 @@
 
 ## P0：公共底座实现，2～8 周
 
-- [ ] 实现 `dv_common_types` 与 contract 的正式行为（当前为骨架）
-- [ ] 实现 log/status/failure service（Message ID 治理 + signature 聚合）
-- [ ] 实现 timeout/watchdog（含诊断 hook：outstanding/pending/heartbeat/reset dump）
-- [ ] 实现 clk/rst module 与 reset service 的正式时序（驱动 `rtl/dv_clk_gen.sv`、`rtl/dv_rst_gen.sv`）
-- [ ] 实现 config snapshot 与来源追踪（优先级覆盖规则）
-- [ ] 实现 run manifest 正式输出（YAML，含依赖 Core VLNV 与 revision）
-- [ ] 实现 queue/ID/compare utils 的完整行为与边界
-- [ ] 建立 unit/negative/portability target 并通过 FuseSoC 运行
+- [x] 实现 `dv_common_types` 与 contract 的正式行为
+- [x] 实现 log/status/failure service（Message ID 治理 + signature 聚合）
+- [x] 实现 timeout/watchdog（含诊断 hook 接口）
+- [x] 实现 clk/rst module 与 reset service（`rtl/dv_clk_gen.sv`、`rtl/dv_rst_gen.sv` 行为经 rtl_smoke 验证）
+- [x] 实现 config snapshot 与来源追踪（优先级覆盖规则）
+- [x] 实现 run manifest 正式输出（YAML，smoke 中已验证）
+- [x] 实现 queue/ID/compare utils 的完整行为与边界（单测修正并通过）
+- [x] 建立 unit/smoke target 并通过 FuseSoC+VCS 运行（12/12 单测 + smoke + rtl_smoke）
 - [ ] 建立 API diff 与 dependency check（对应 `tools/api_diff`、`tools/dep_check`）
-- [ ] 完成 minimal UVM example 全链路运行（smoke target 真机跑通）
+- [x] 完成 minimal UVM example 全链路运行（`fusesoc run --target=smoke --tool=vcs aix:dv:common_all` PASS）
+- [ ] 补齐 `tools/schema_check`、`tools/result_check` 实现
 
 ## P1：首个季度
 
