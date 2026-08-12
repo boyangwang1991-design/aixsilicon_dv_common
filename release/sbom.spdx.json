@@ -1,0 +1,37 @@
+{
+  "spdxVersion": "SPDX-2.3",
+  "dataLicense": "CC0-1.0",
+  "SPDXID": "SPDXRef-DOCUMENT",
+  "name": "aix-dv-common-0.1.0",
+  "documentNamespace": "https://aixsilicon.com/spdx/aix-dv-common-0.1.0",
+  "creationInfo": {
+    "created": "2026-08-12T00:00:00Z",
+    "creators": [
+      "Tool: aix-dv-common-release"
+    ]
+  },
+  "packages": [
+    {
+      "name": "aix-dv-common",
+      "SPDXID": "SPDXRef-Package-aix-dv-common",
+      "versionInfo": "0.1.0",
+      "downloadLocation": "NOASSERTION",
+      "licenseConcluded": "LicenseRef-AIXSILICON-Proprietary",
+      "licenseDeclared": "LicenseRef-AIXSILICON-Proprietary",
+      "copyrightText": "Copyright (c) 2026 AIXSILICON. All rights reserved."
+    }
+  ],
+  "relationships": [
+    {
+      "spdxElementId": "SPDXRef-DOCUMENT",
+      "relationshipType": "DESCRIBES",
+      "relatedSpdxElement": "SPDXRef-Package-aix-dv-common"
+    }
+  ],
+  "hasExtractedLicensingInfos": [
+    {
+      "licenseId": "LicenseRef-AIXSILICON-Proprietary",
+      "extractedText": "Proprietary license. See LICENSE file. Do not redistribute without authorization."
+    }
+  ]
+}

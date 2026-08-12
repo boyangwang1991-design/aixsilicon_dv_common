@@ -1,0 +1,43 @@
+# AIX DV Common - Release Manifest V0.1
+# 由发布流程自动生成（见 plan.md 第 16.3 节）。
+# 当前为占位骨架。
+
+release:
+  version: 0.1.0
+  status: draft            # draft / candidate / qualified
+  date: null
+  tag: null
+
+components:
+  - vlnv: aix:dv:common_types:1.0.0
+    maturity: candidate
+  - vlnv: aix:dv:common_utils:1.0.0
+    maturity: experimental
+  - vlnv: aix:dv:common_runtime:1.0.0
+    maturity: experimental
+  - vlnv: aix:dv:common_uvm:1.0.0
+    maturity: experimental
+  - vlnv: aix:dv:common_ral:1.0.0
+    maturity: experimental
+  - vlnv: aix:dv:common_scoreboard:1.0.0
+    maturity: experimental
+  - vlnv: aix:dv:common_memory:1.0.0
+    maturity: experimental
+  - vlnv: aix:dv:common_all:1.0.0
+    maturity: experimental
+
+gates:
+  g0_boundary: not_run
+  g1_structure: not_run
+  g2_static: not_run
+  g3_unit: not_run
+  g4_reset: not_run
+  g5_portability: not_run
+  g6_performance: not_run
+  g7_evidence: not_run
+  g8_project_validation: not_run
+  g9_release: not_run
+
+evidence:
+  qualification_report: release/evidence/qualification.json
+  sbom: release/sbom.spdx.json

@@ -1,0 +1,52 @@
+# 组件级 CODEOWNER 分配
+# 格式：路径  @owner
+# Owner 需负责 API 兼容、评审、版本与质量 Gate。
+
+# 根文件与全局治理
+/README.md                          @dv-arch
+/LICENSE                            @dv-arch
+/CHANGELOG.md                       @dv-arch
+/CONTRIBUTING.md                    @dv-arch
+/CODEOWNERS                         @dv-arch
+
+# FuseSoC 组织
+/fusesoc/                           @dv-flow
+
+# L0 基础类型与契约
+/src/types/                         @dv-arch
+
+# L1 工具层
+/src/utils/                         @dv-sb
+
+# L2 运行时服务
+/src/runtime/                       @dv-flow
+
+# L3 可复用组件
+/src/components/clk_rst/            @dv-flow
+/src/components/scoreboard/         @dv-sb
+/src/components/memory/             @dv-sb
+/src/components/coverage/           @dv-flow
+/src/components/interrupt/          @dv-arch
+/src/components/fault/              @dv-arch
+
+# L4 UVM 框架与 RAL
+/src/uvm/                           @dv-arch
+/src/ral/                           @dv-ral
+
+# RTL 非综合模块
+/rtl/                               @dv-flow
+
+# DPI（严格受限）
+/dpi/                               @dv-flow
+
+# Schema 与元数据
+/schemas/                           @dv-flow
+/metadata/                          @dv-flow
+
+# 单测、示例、测试、文档、工具、发布
+/unit/                              @dv-sb
+/examples/                          @dv-arch
+/tests/                             @dv-flow
+/docs/                              @dv-arch
+/tools/                             @dv-flow
+/release/                           @dv-arch

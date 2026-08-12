@@ -1,0 +1,66 @@
+CAPI=2:
+# AIX DV Common - Scoreboard 组件
+# VLNV: aix:dv:common_scoreboard:1.0.0
+
+name: aix:dv:common_scoreboard:1.0.0
+description: >-
+  DV Common Scoreboard 组件：dv_scoreboard_base、in-order/out-of-order matcher、
+  compare policy、flush/drain 机制与结构化 diff。
+  业务层负责 transaction key、compare policy、reference model 调用与 reset 业务预期。
+
+filesets:
+  files_scoreboard:
+    depend:
+      - aix:dv:common_types:1.0.0
+      - aix:dv:common_utils:1.0.0
+      - aix:dv:common_runtime:1.0.0
+    file_type: systemVerilogSource
+    files:
+      - ../src/components/scoreboard/dv_scoreboard_base_pkg.sv
+      - ../src/components/scoreboard/dv_matcher_pkg.sv
+      - ../src/components/scoreboard/dv_compare_policy_pkg.sv
+
+  files_scoreboard_unit:
+    file_type: systemVerilogSource
+    files:
+      - ../unit/scoreboard/dv_scoreboard_unit_tb.sv
+      - ../unit/scoreboard/dv_scoreboard_unit_test.sv
+      - ../unit/scoreboard/dv_matcher_unit_tb.sv
+      - ../unit/scoreboard/dv_matcher_unit_test.sv
+
+  files_negative:
+    file_type: systemVerilogSource
+    files:
+      - ../tests/negative/dv_scoreboard_negative_tb.sv
+
+targets:
+  default:
+    filesets:
+      - files_scoreboard
+
+  lint:
+    description: SystemVerilog 静态检查
+    filesets:
+      - files_scoreboard
+
+  compile:
+    description: 最小编译
+    filesets:
+      - files_scoreboard
+
+  unit:
+    description: Scoreboard 单元测试
+    filesets:
+      - files_scoreboard
+      - files_scoreboard_unit
+    toplevel:
+      - dv_scoreboard_unit_tb
+      - dv_matcher_unit_tb
+
+  negative:
+    description: 失败路径、timeout、非法输入
+    filesets:
+      - files_scoreboard
+      - files_negative
+    toplevel:
+      - dv_scoreboard_negative_tb

@@ -1,0 +1,82 @@
+CAPI=2:
+# AIX DV Common - L2 运行时服务
+# VLNV: aix:dv:common_runtime:1.0.0
+
+name: aix:dv:common_runtime:1.0.0
+description: >-
+  DV Common L2 运行时服务：log、status、failure、timeout、watchdog、
+  reset service、config snapshot、run manifest。
+  Service 统一生命周期：configure → start → reset_notify → quiesce → drain → finalize。
+
+filesets:
+  files_runtime:
+    depend:
+      - aix:dv:common_types:1.0.0
+    file_type: systemVerilogSource
+    files:
+      - ../src/runtime/dv_log_pkg.sv
+      - ../src/runtime/dv_status_pkg.sv
+      - ../src/runtime/dv_timeout_pkg.sv
+      - ../src/runtime/dv_watchdog_pkg.sv
+      - ../src/runtime/dv_reset_service_pkg.sv
+      - ../src/runtime/dv_config_pkg.sv
+      - ../src/runtime/dv_manifest_pkg.sv
+
+  files_runtime_unit:
+    file_type: systemVerilogSource
+    files:
+      - ../unit/runtime/dv_log_unit_tb.sv
+      - ../unit/runtime/dv_log_unit_test.sv
+      - ../unit/runtime/dv_status_unit_tb.sv
+      - ../unit/runtime/dv_status_unit_test.sv
+      - ../unit/runtime/dv_timeout_unit_tb.sv
+      - ../unit/runtime/dv_timeout_unit_test.sv
+
+  files_minimal_uvm:
+    file_type: systemVerilogSource
+    files:
+      - ../examples/minimal_uvm/dv_minimal_pkg.sv
+      - ../examples/minimal_uvm/dv_minimal_test.sv
+      - ../examples/minimal_uvm/dv_minimal_test_top.sv
+
+parameters:
+  DV_MINIMAL_SMOKE:
+    datatype: bool
+    paramtype: vlogdefine
+    default: 0
+    description: 启用 minimal smoke 测试路径
+
+targets:
+  default:
+    filesets:
+      - files_runtime
+
+  lint:
+    description: SystemVerilog 静态检查
+    filesets:
+      - files_runtime
+
+  compile:
+    description: 最小编译
+    filesets:
+      - files_runtime
+
+  unit:
+    description: 运行时服务单元测试
+    filesets:
+      - files_runtime
+      - files_runtime_unit
+    toplevel:
+      - dv_log_unit_tb
+      - dv_status_unit_tb
+      - dv_timeout_unit_tb
+
+  smoke:
+    description: 聚合基本运行（示例工程）
+    filesets:
+      - files_runtime
+      - files_minimal_uvm
+    toplevel:
+      - dv_minimal_test_top
+    parameters:
+      - DV_MINIMAL_SMOKE=1

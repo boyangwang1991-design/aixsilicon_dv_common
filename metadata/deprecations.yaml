@@ -1,0 +1,25 @@
+# AIX DV Common - 弃用记录 V0.1
+# 弃用流程：Minor 标记 deprecated → 提供替代 API 与迁移文档 →
+#           保留至少一个稳定发布周期 → Major 才删除。
+
+deprecations:
+
+  - component: null
+    vlnv: null
+    deprecated_in: null
+    removed_in: null
+    replacement: null
+    migration_note: null
+    reason: null
+    status: none
+
+# 当前无弃用组件。
+# 新增弃用时示例：
+# - component: dv_old_api
+#   vlnv: aix:dv:common_utils:0.9.0
+#   deprecated_in: 1.1.0
+#   removed_in: 2.0.0
+#   replacement: dv_new_api
+#   migration_note: docs/migration/old_to_new.md
+#   reason: 使用 composition 替代继承
+#   status: deprecated

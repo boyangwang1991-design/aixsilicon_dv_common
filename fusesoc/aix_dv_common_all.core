@@ -1,0 +1,81 @@
+CAPI=2:
+# AIX DV Common - 聚合 Core
+# VLNV: aix:dv:common_all:1.0.0
+
+name: aix:dv:common_all:1.0.0
+description: >-
+  聚合 Core：仅聚合依赖，方便项目一次引入全部公共组件。
+  约束：不增加新的运行时全局对象；不改变子 Core 编译宏；
+  不隐式启用 DPI；不隐式启用 coverage；不引入任何 VIP。
+  项目可只依赖需要的子 Core。
+
+filesets:
+  files_rtl:
+    depend:
+      - aix:dv:common_types:1.0.0
+      - aix:dv:common_utils:1.0.0
+      - aix:dv:common_runtime:1.0.0
+      - aix:dv:common_uvm:1.0.0
+      - aix:dv:common_ral:1.0.0
+      - aix:dv:common_scoreboard:1.0.0
+      - aix:dv:common_memory:1.0.0
+    file_type: systemVerilogSource
+    files:
+      - ../rtl/dv_signal_probe_if.sv
+      - ../rtl/dv_clk_gen.sv
+      - ../rtl/dv_rst_gen.sv
+      - ../rtl/dv_sim_timeout.sv
+
+  files_dpi_include:
+    file_type: systemVerilogSource
+    files:
+      - ../dpi/include/dv_dpi_types.svh
+
+  files_minimal_uvm:
+    file_type: systemVerilogSource
+    files:
+      - ../examples/minimal_uvm/dv_minimal_pkg.sv
+      - ../examples/minimal_uvm/dv_minimal_test.sv
+      - ../examples/minimal_uvm/dv_minimal_test_top.sv
+
+parameters:
+  DV_MINIMAL_SMOKE:
+    datatype: bool
+    paramtype: vlogdefine
+    default: 0
+    description: 启用 minimal smoke 测试路径
+
+targets:
+  default:
+    filesets:
+      - files_rtl
+      - files_dpi_include
+
+  lint:
+    description: SystemVerilog 静态检查
+    filesets:
+      - files_rtl
+      - files_dpi_include
+
+  compile:
+    description: 最小编译
+    filesets:
+      - files_rtl
+      - files_dpi_include
+
+  smoke:
+    description: 聚合基本运行（minimal UVM example）
+    filesets:
+      - files_rtl
+      - files_dpi_include
+      - files_minimal_uvm
+    toplevel:
+      - dv_minimal_test_top
+    parameters:
+      - DV_MINIMAL_SMOKE=1
+
+  package:
+    description: 发布检查（Core 元数据校验）
+    filesets:
+      - files_rtl
+      - files_dpi_include

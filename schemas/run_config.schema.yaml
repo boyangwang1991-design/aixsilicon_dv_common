@@ -1,0 +1,39 @@
+# AIX DV Common - Run Config Schema V0.1
+# 四层配置：run_cfg / env_cfg / service_cfg / project_cfg。
+# 优先级：Schema Default < Organization Profile < Project Config < Test Config < CLI Override
+$schema: "http://json-schema.org/draft-07/schema#"
+title: "dv-run-config"
+type: object
+required: [run]
+additionalProperties: true
+properties:
+  run:
+    type: object
+    description: run_cfg：seed、timeout、verbosity、wave、tool profile
+    required: [seed]
+    properties:
+      seed:            { type: integer, minimum: 0 }
+      global_timeout:  { type: string, pattern: "^[0-9]+(ns|us|ms|s)$", description: "例如 1ms" }
+      verbosity:       { type: integer, minimum: 0, maximum: 5 }
+      wave:            { type: boolean, default: false }
+      tool_profile:    { type: string }
+      sim_top:         { type: string }
+      plusargs:
+        type: object
+        additionalProperties: { type: string }
+  env:
+    type: object
+    description: env_cfg：active/passive、scoreboard、coverage、RAL 开关
+    properties:
+      active:        { type: boolean, default: true }
+      scoreboard_en: { type: boolean, default: true }
+      coverage_en:   { type: boolean, default: false }
+      ral_en:        { type: boolean, default: true }
+  service:
+    type: object
+    description: service_cfg：某个公共服务的具体参数
+    additionalProperties: true
+  project:
+    type: object
+    description: project_cfg：由项目自定义，不进入公共库
+    additionalProperties: true

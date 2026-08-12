@@ -1,0 +1,54 @@
+CAPI=2:
+# AIX DV Common - L0 基础类型与契约
+# VLNV: aix:dv:common_types:1.0.0
+
+name: aix:dv:common_types:1.0.0
+description: >-
+  DV Common L0 基础类型与契约。status/severity/result/ID/time 等公共类型，
+  service lifecycle / reset-aware / drainable 接口契约，test/run/failure/metric 结构。
+
+filesets:
+  files_types:
+    file_type: systemVerilogSource
+    files:
+      - ../src/types/dv_common_types_pkg.sv
+      - ../src/types/dv_component_contract_pkg.sv
+      - ../src/types/dv_result_types_pkg.sv
+
+  files_types_unit:
+    file_type: systemVerilogSource
+    files:
+      - ../unit/types/dv_common_types_unit_tb.sv
+      - ../unit/types/dv_common_types_unit_test.sv
+
+parameters:
+  DV_LINT_MODE:
+    datatype: bool
+    paramtype: vlogdefine
+    default: 0
+    description: 启用 lint 编译宏，抑制仿真运行相关代码
+
+targets:
+  default:
+    filesets:
+      - files_types
+
+  lint:
+    description: SystemVerilog 静态检查（Syntax-only）
+    filesets:
+      - files_types
+    parameters:
+      - DV_LINT_MODE=1
+
+  compile:
+    description: 最小编译（elaboration 之前）
+    filesets:
+      - files_types
+
+  unit:
+    description: 基础类型单元测试
+    filesets:
+      - files_types
+      - files_types_unit
+    toplevel:
+      - dv_common_types_unit_tb

@@ -1,0 +1,9 @@
+Copyright (c) 2026 AIXSILICON. All rights reserved.
+
+本仓库（aix-dv-common）为 AIXSILICON 组织内部使用的验证基础设施库。
+在未获得明确授权之前，禁止以任何形式复制、分发、修改或用于商业用途。
+
+如需引入外部开源组件，必须遵循 CONTRIBUTING.md 中定义的开源引入流程，
+并保留相应版权与 NOTICE 信息。
+
+-- 请根据组织法务策略替换为正式 LICENSE 文本 --

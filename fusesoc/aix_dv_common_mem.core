@@ -1,0 +1,50 @@
+CAPI=2:
+# AIX DV Common - Memory 组件
+# VLNV: aix:dv:common_memory:1.0.0
+
+name: aix:dv:common_memory:1.0.0
+description: >-
+  DV Common Memory 组件：稀疏/密集镜像、byte enable、unknown policy、
+  backdoor/frontdoor 抽象与 ECC 数据辅助。
+
+filesets:
+  files_mem:
+    depend:
+      - aix:dv:common_types:1.0.0
+      - aix:dv:common_utils:1.0.0
+    file_type: systemVerilogSource
+    files:
+      - ../src/components/memory/dv_memory_model_pkg.sv
+      - ../src/components/memory/dv_mem_backdoor_pkg.sv
+
+  files_mem_unit:
+    file_type: systemVerilogSource
+    files:
+      - ../unit/memory/dv_memory_unit_tb.sv
+      - ../unit/memory/dv_memory_unit_test.sv
+      - ../unit/memory/dv_mem_backdoor_unit_tb.sv
+      - ../unit/memory/dv_mem_backdoor_unit_test.sv
+
+targets:
+  default:
+    filesets:
+      - files_mem
+
+  lint:
+    description: SystemVerilog 静态检查
+    filesets:
+      - files_mem
+
+  compile:
+    description: 最小编译
+    filesets:
+      - files_mem
+
+  unit:
+    description: Memory 单元测试
+    filesets:
+      - files_mem
+      - files_mem_unit
+    toplevel:
+      - dv_memory_unit_tb
+      - dv_mem_backdoor_unit_tb

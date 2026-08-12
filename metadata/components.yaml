@@ -1,0 +1,293 @@
+# AIX DV Common - 组件 Catalog V0.1
+# Skill Suite 只从 Catalog 中选择达到 qualified 且兼容目标 tool profile 的组件。
+# 每条目遵循 schemas/component.schema.yaml。
+
+catalog_version: 0.1
+
+components:
+
+  # ---- L0 Types & Contracts ----
+  - name: dv_common_types
+    vlnv: aix:dv:common_types:1.0.0
+    category: types
+    owner: dv-arch
+    maturity: candidate
+    capabilities:
+      reset_aware: false
+      drainable: false
+      produces_metric: false
+      affects_pass_fail: false
+    compatibility:
+      uvm_profiles: [uvm12_legacy, uvm1800_2]
+      simulators: [vcs, xcelium, questa]
+    quality:
+      lint: not_run
+      unit_test: not_run
+      negative_test: not_run
+      portability: not_run
+
+  - name: dv_component_contract
+    vlnv: aix:dv:common_types:1.0.0
+    category: types
+    owner: dv-arch
+    maturity: candidate
+    capabilities:
+      reset_aware: false
+      drainable: false
+      produces_metric: false
+      affects_pass_fail: false
+    compatibility:
+      uvm_profiles: [uvm12_legacy, uvm1800_2]
+      simulators: [vcs, xcelium, questa]
+
+  # ---- L1 Utilities ----
+  - name: dv_queue
+    vlnv: aix:dv:common_utils:1.0.0
+    category: utility
+    owner: dv-sb
+    maturity: experimental
+    capabilities:
+      ordered_match: true
+    compatibility:
+      uvm_profiles: [uvm12_legacy, uvm1800_2]
+      simulators: [vcs, xcelium, questa]
+
+  - name: dv_id
+    vlnv: aix:dv:common_utils:1.0.0
+    category: utility
+    owner: dv-sb
+    maturity: experimental
+    compatibility:
+      uvm_profiles: [uvm12_legacy, uvm1800_2]
+      simulators: [vcs, xcelium, questa]
+
+  - name: dv_compare
+    vlnv: aix:dv:common_utils:1.0.0
+    category: utility
+    owner: dv-sb
+    maturity: experimental
+    capabilities:
+      structured_diff: true
+    compatibility:
+      uvm_profiles: [uvm12_legacy, uvm1800_2]
+      simulators: [vcs, xcelium, questa]
+
+  - name: dv_data
+    vlnv: aix:dv:common_utils:1.0.0
+    category: utility
+    owner: dv-sb
+    maturity: experimental
+    compatibility:
+      uvm_profiles: [uvm12_legacy, uvm1800_2]
+      simulators: [vcs, xcelium, questa]
+
+  - name: dv_stats
+    vlnv: aix:dv:common_utils:1.0.0
+    category: utility
+    owner: dv-sb
+    maturity: experimental
+    capabilities:
+      produces_metric: true
+    compatibility:
+      uvm_profiles: [uvm12_legacy, uvm1800_2]
+      simulators: [vcs, xcelium, questa]
+
+  # ---- L2 Runtime Services ----
+  - name: dv_log
+    vlnv: aix:dv:common_runtime:1.0.0
+    category: runtime_service
+    owner: dv-flow
+    maturity: experimental
+    compatibility:
+      uvm_profiles: [uvm12_legacy, uvm1800_2]
+      simulators: [vcs, xcelium, questa]
+
+  - name: dv_status
+    vlnv: aix:dv:common_runtime:1.0.0
+    category: runtime_service
+    owner: dv-flow
+    maturity: experimental
+    capabilities:
+      affects_pass_fail: true
+    compatibility:
+      uvm_profiles: [uvm12_legacy, uvm1800_2]
+      simulators: [vcs, xcelium, questa]
+
+  - name: dv_timeout
+    vlnv: aix:dv:common_runtime:1.0.0
+    category: runtime_service
+    owner: dv-flow
+    maturity: experimental
+    capabilities:
+      affects_pass_fail: true
+    compatibility:
+      uvm_profiles: [uvm12_legacy, uvm1800_2]
+      simulators: [vcs, xcelium, questa]
+
+  - name: dv_watchdog
+    vlnv: aix:dv:common_runtime:1.0.0
+    category: runtime_service
+    owner: dv-flow
+    maturity: experimental
+    capabilities:
+      affects_pass_fail: true
+    compatibility:
+      uvm_profiles: [uvm12_legacy, uvm1800_2]
+      simulators: [vcs, xcelium, questa]
+
+  - name: dv_reset_service
+    vlnv: aix:dv:common_runtime:1.0.0
+    category: runtime_service
+    owner: dv-flow
+    maturity: experimental
+    capabilities:
+      reset_aware: true
+    compatibility:
+      uvm_profiles: [uvm12_legacy, uvm1800_2]
+      simulators: [vcs, xcelium, questa]
+
+  - name: dv_config
+    vlnv: aix:dv:common_runtime:1.0.0
+    category: runtime_service
+    owner: dv-flow
+    maturity: experimental
+    compatibility:
+      uvm_profiles: [uvm12_legacy, uvm1800_2]
+      simulators: [vcs, xcelium, questa]
+
+  - name: dv_manifest
+    vlnv: aix:dv:common_runtime:1.0.0
+    category: runtime_service
+    owner: dv-flow
+    maturity: experimental
+    capabilities:
+      produces_metric: true
+    compatibility:
+      uvm_profiles: [uvm12_legacy, uvm1800_2]
+      simulators: [vcs, xcelium, questa]
+
+  # ---- L3 Reusable Components ----
+  - name: dv_clk_rst
+    vlnv: aix:dv:common_runtime:1.0.0
+    category: reusable_component
+    owner: dv-flow
+    maturity: experimental
+    capabilities:
+      reset_aware: true
+    compatibility:
+      uvm_profiles: [uvm12_legacy, uvm1800_2]
+      simulators: [vcs, xcelium, questa]
+
+  - name: dv_scoreboard
+    vlnv: aix:dv:common_scoreboard:1.0.0
+    category: reusable_component
+    owner: dv-sb
+    maturity: experimental
+    capabilities:
+      reset_aware: true
+      drainable: true
+      ordered_match: true
+      out_of_order_match: true
+      structured_diff: true
+      produces_metric: true
+      affects_pass_fail: true
+    compatibility:
+      uvm_profiles: [uvm12_legacy, uvm1800_2]
+      simulators: [vcs, xcelium, questa]
+
+  - name: dv_memory
+    vlnv: aix:dv:common_memory:1.0.0
+    category: reusable_component
+    owner: dv-sb
+    maturity: experimental
+    capabilities:
+      reset_aware: true
+    compatibility:
+      uvm_profiles: [uvm12_legacy, uvm1800_2]
+      simulators: [vcs, xcelium, questa]
+
+  - name: dv_coverage_control
+    vlnv: aix:dv:common_runtime:1.0.0
+    category: reusable_component
+    owner: dv-flow
+    maturity: draft
+    compatibility:
+      uvm_profiles: [uvm12_legacy, uvm1800_2]
+      simulators: [vcs, xcelium, questa]
+
+  - name: dv_interrupt_service
+    vlnv: aix:dv:common_runtime:1.0.0
+    category: reusable_component
+    owner: dv-arch
+    maturity: draft
+    capabilities:
+      reset_aware: true
+    compatibility:
+      uvm_profiles: [uvm12_legacy, uvm1800_2]
+      simulators: [vcs, xcelium, questa]
+
+  - name: dv_fault_control
+    vlnv: aix:dv:common_runtime:1.0.0
+    category: reusable_component
+    owner: dv-arch
+    maturity: draft
+    capabilities:
+      reset_aware: true
+      affects_pass_fail: true
+    compatibility:
+      uvm_profiles: [uvm12_legacy, uvm1800_2]
+      simulators: [vcs, xcelium, questa]
+
+  # ---- L4 UVM Framework & RAL ----
+  - name: dv_base_test
+    vlnv: aix:dv:common_uvm:1.0.0
+    category: uvm_framework
+    owner: dv-arch
+    maturity: experimental
+    capabilities:
+      affects_pass_fail: true
+    compatibility:
+      uvm_profiles: [uvm12_legacy, uvm1800_2]
+      simulators: [vcs, xcelium, questa]
+
+  - name: dv_base_virtual_sequence
+    vlnv: aix:dv:common_uvm:1.0.0
+    category: uvm_framework
+    owner: dv-arch
+    maturity: experimental
+    compatibility:
+      uvm_profiles: [uvm12_legacy, uvm1800_2]
+      simulators: [vcs, xcelium, questa]
+
+  - name: dv_virtual_sequencer
+    vlnv: aix:dv:common_uvm:1.0.0
+    category: uvm_framework
+    owner: dv-arch
+    maturity: experimental
+    compatibility:
+      uvm_profiles: [uvm12_legacy, uvm1800_2]
+      simulators: [vcs, xcelium, questa]
+
+  - name: dv_ral
+    vlnv: aix:dv:common_ral:1.0.0
+    category: ral
+    owner: dv-ral
+    maturity: experimental
+    capabilities:
+      reset_aware: true
+      affects_pass_fail: true
+    compatibility:
+      uvm_profiles: [uvm12_legacy, uvm1800_2]
+      simulators: [vcs, xcelium, questa]
+
+  - name: dv_csr_seq
+    vlnv: aix:dv:common_ral:1.0.0
+    category: ral
+    owner: dv-ral
+    maturity: experimental
+    capabilities:
+      reset_aware: true
+      affects_pass_fail: true
+    compatibility:
+      uvm_profiles: [uvm12_legacy, uvm1800_2]
+      simulators: [vcs, xcelium, questa]

@@ -1,0 +1,49 @@
+CAPI=2:
+# AIX DV Common - RAL/CSR 公共能力
+# VLNV: aix:dv:common_ral:1.0.0
+
+name: aix:dv:common_ral:1.0.0
+description: >-
+  DV Common RAL/CSR 公共能力：dv_ral_base 扩展、公共 CSR sequence（smoke/reset/rw/bit-bash）、
+  adapter/predictor 连接契约。具体总线 RAL adapter 由 VIP 提供。
+
+filesets:
+  files_ral:
+    depend:
+      - aix:dv:common_types:1.0.0
+      - aix:dv:common_runtime:1.0.0
+      - aix:dv:common_uvm:1.0.0
+    file_type: systemVerilogSource
+    files:
+      - ../src/ral/dv_ral_adapter_contract_pkg.sv
+      - ../src/ral/dv_ral_pkg.sv
+      - ../src/ral/dv_csr_seq_pkg.sv
+
+  files_ral_unit:
+    file_type: systemVerilogSource
+    files:
+      - ../unit/ral/dv_csr_seq_unit_tb.sv
+      - ../unit/ral/dv_csr_seq_unit_test.sv
+
+targets:
+  default:
+    filesets:
+      - files_ral
+
+  lint:
+    description: SystemVerilog 静态检查
+    filesets:
+      - files_ral
+
+  compile:
+    description: 最小编译
+    filesets:
+      - files_ral
+
+  unit:
+    description: RAL 辅助单元测试
+    filesets:
+      - files_ral
+      - files_ral_unit
+    toplevel:
+      - dv_csr_seq_unit_tb

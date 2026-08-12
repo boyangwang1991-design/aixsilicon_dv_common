@@ -1,0 +1,123 @@
+# AIX DV Common - Message ID 注册表 V0.1
+# 格式：AIX_DV_<DOMAIN>_<EVENT>
+# Message ID 是回归 signature 的稳定组成，禁止使用难以稳定聚类的自由文本。
+# 新增 Message ID 必须在此注册。
+
+message_ids:
+
+  # ---- CONFIG ----
+  - id: AIX_DV_CFG_INVALID
+    domain: CFG
+    description: 配置或 Schema 校验失败
+    severity: fatal
+    affects_pass_fail: true
+
+  - id: AIX_DV_CFG_SOURCE
+    domain: CFG
+    description: 配置项来源记录
+    severity: info
+    affects_pass_fail: false
+
+  # ---- STATUS / RESULT ----
+  - id: AIX_DV_STATUS_ABORT
+    domain: STATUS
+    description: 用户或系统中止
+    severity: fatal
+    affects_pass_fail: true
+
+  - id: AIX_DV_STATUS_SKIP
+    domain: STATUS
+    description: 测试不适用，跳过
+    severity: info
+    affects_pass_fail: false
+
+  # ---- TIMEOUT ----
+  - id: AIX_DV_TIMEOUT_GLOBAL
+    domain: TIMEOUT
+    description: 全局 timeout 触发
+    severity: fatal
+    affects_pass_fail: true
+
+  - id: AIX_DV_TIMEOUT_DIAG
+    domain: TIMEOUT
+    description: timeout 诊断 dump（outstanding/pending/heartbeat/reset）
+    severity: info
+    affects_pass_fail: false
+
+  # ---- WATCHDOG ----
+  - id: AIX_DV_DEADLOCK
+    domain: WATCHDOG
+    description: 线程停滞 / deadlock 观察
+    severity: error
+    affects_pass_fail: true
+
+  # ---- RESET ----
+  - id: AIX_DV_RESET_EPOCH
+    domain: RESET
+    description: reset assert/deassert 与 epoch 递增
+    severity: info
+    affects_pass_fail: false
+
+  # ---- SCOREBOARD ----
+  - id: AIX_DV_SB_MISMATCH
+    domain: SB
+    description: scoreboard 事务不匹配
+    severity: error
+    affects_pass_fail: true
+
+  - id: AIX_DV_SB_PENDING
+    domain: SB
+    description: drain 后仍有 outstanding
+    severity: error
+    affects_pass_fail: true
+
+  - id: AIX_DV_SB_FLUSH
+    domain: SB
+    description: scoreboard flush 事件
+    severity: warning
+    affects_pass_fail: false
+
+  # ---- RAL / CSR ----
+  - id: AIX_DV_RAL_PREDICT
+    domain: RAL
+    description: RAL predictor 预测记录
+    severity: info
+    affects_pass_fail: false
+
+  - id: AIX_DV_RAL_RESET
+    domain: RAL
+    description: HW reset 值校验失败
+    severity: error
+    affects_pass_fail: true
+
+  - id: AIX_DV_CSR_SMOKE
+    domain: CSR
+    description: CSR smoke 读访问
+    severity: info
+    affects_pass_fail: false
+
+  - id: AIX_DV_CSR_RW
+    domain: CSR
+    description: CSR RW 读写比较
+    severity: info
+    affects_pass_fail: false
+
+  - id: AIX_DV_CSR_BIT_BASH
+    domain: CSR
+    description: CSR bit-bash 测试
+    severity: info
+    affects_pass_fail: false
+
+  # ---- MEMORY ----
+  - id: AIX_DV_MEM_UNINIT
+    domain: MEM
+    description: 未初始化读访问
+    severity: warning
+    affects_pass_fail: false
+
+  # ---- FAULT ----
+  - id: AIX_DV_FAULT_FAIL
+    domain: FAULT
+    description: 故障注入流程判定失败
+    severity: error
+    affects_pass_fail: true

@@ -1,0 +1,20 @@
+# AIX DV Common - Metric Schema V0.1
+$schema: "http://json-schema.org/draft-07/schema#"
+title: "dv-metric"
+type: object
+required: [key, value]
+additionalProperties: true
+properties:
+  key:
+    type: string
+    description: 指标名，例如 scoreboard_matched
+  value:
+    type: [integer, number, string, boolean, "null"]
+  unit:
+    type: string
+    description: 单位，例如 ps / ns / txns / bytes
+  source_component:
+    type: string
+  epoch:
+    type: integer
+    description: 关联的 reset epoch（可选）

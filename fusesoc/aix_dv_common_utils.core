@@ -1,0 +1,55 @@
+CAPI=2:
+# AIX DV Common - L1 无协议工具类
+# VLNV: aix:dv:common_utils:1.0.0
+
+name: aix:dv:common_utils:1.0.0
+description: >-
+  DV Common L1 工具层：typed queue、bounded queue、ID 分配、compare、data、stats 等。
+  本层尽量避免 UVM 依赖，部分工具可用于非 UVM 测试台。
+
+filesets:
+  files_utils:
+    depend:
+      - aix:dv:common_types:1.0.0
+    file_type: systemVerilogSource
+    files:
+      - ../src/utils/dv_queue_pkg.sv
+      - ../src/utils/dv_id_pkg.sv
+      - ../src/utils/dv_compare_pkg.sv
+      - ../src/utils/dv_data_pkg.sv
+      - ../src/utils/dv_stats_pkg.sv
+
+  files_utils_unit:
+    file_type: systemVerilogSource
+    files:
+      - ../unit/utils/dv_queue_unit_tb.sv
+      - ../unit/utils/dv_queue_unit_test.sv
+      - ../unit/utils/dv_id_unit_tb.sv
+      - ../unit/utils/dv_id_unit_test.sv
+      - ../unit/utils/dv_compare_unit_tb.sv
+      - ../unit/utils/dv_compare_unit_test.sv
+
+targets:
+  default:
+    filesets:
+      - files_utils
+
+  lint:
+    description: SystemVerilog 静态检查
+    filesets:
+      - files_utils
+
+  compile:
+    description: 最小编译
+    filesets:
+      - files_utils
+
+  unit:
+    description: 工具层单元测试
+    filesets:
+      - files_utils
+      - files_utils_unit
+    toplevel:
+      - dv_queue_unit_tb
+      - dv_id_unit_tb
+      - dv_compare_unit_tb

@@ -1,0 +1,45 @@
+# 构建与仿真产物
+build/
+work/
+*.log
+*.ucdb
+*.fsdb
+*.vpd
+*.vcd
+*.fst
+*.wlf
+*.mem
+*.dump
+*.vmem
+core_dump*
+simv*
+simv.daidir/
+csrc/
+ucli.key
+inter.vpd
+verdiLog/
+xsim.dir/
+*.jou
+*.wdb
+*.syn
+*.elab
+
+# 工具缓存
+.fusesoc/
+.edalize/
+.cache/
+*.pyc
+__pycache__/
+node_modules/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# 发布临时产物
+release/evidence/*.tmp
+*.spdx.json.tmp

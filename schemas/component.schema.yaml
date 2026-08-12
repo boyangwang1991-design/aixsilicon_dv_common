@@ -1,0 +1,59 @@
+# AIX DV Common - 组件 Catalog 条目 Schema V0.1
+# 对应 metadata/components.yaml 中每个组件条目。
+$schema: "http://json-schema.org/draft-07/schema#"
+title: "dv-component"
+type: object
+required: [name, vlnv, category, owner, maturity]
+additionalProperties: true
+properties:
+  name:
+    type: string
+    description: 组件名，例如 dv_scoreboard
+  vlnv:
+    type: string
+    pattern: "^aix:dv:[a-z0-9_]+:[0-9]+\\.[0-9]+\\.[0-9]+$"
+    description: FuseSoC VLNV
+  category:
+    type: string
+    enum: [types, utility, runtime_service, reusable_component, uvm_framework, ral, adapter]
+  owner:
+    type: string
+  maturity:
+    type: string
+    enum: [draft, experimental, candidate, qualified, deprecated, retired]
+  dependencies:
+    type: array
+    items:
+      type: string
+      description: 依赖 VLNV 或版本约束，例如 "aix:dv:common_types:^1.0"
+  capabilities:
+    type: object
+    properties:
+      reset_aware:    { type: boolean }
+      drainable:      { type: boolean }
+      ordered_match:  { type: boolean }
+      out_of_order_match: { type: boolean }
+      structured_diff:    { type: boolean }
+      produces_metric:    { type: boolean }
+      affects_pass_fail:  { type: boolean }
+  compatibility:
+    type: object
+    properties:
+      uvm_profiles:
+        type: array
+        items: { type: string, enum: [uvm12_legacy, uvm1800_2] }
+      simulators:
+        type: array
+        items: { type: string, enum: [vcs, xcelium, questa, verilator] }
+  quality:
+    type: object
+    properties:
+      lint:         { type: string, enum: [pass, fail, not_run] }
+      unit_test:    { type: string, enum: [pass, fail, not_run] }
+      negative_test:  { type: string, enum: [pass, fail, not_run] }
+      portability:  { type: string, enum: [pass, fail, not_run] }
+  evidence:
+    type: object
+    properties:
+      release_manifest: { type: string }
+      report:           { type: string }

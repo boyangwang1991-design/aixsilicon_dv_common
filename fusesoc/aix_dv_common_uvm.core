@@ -1,0 +1,61 @@
+CAPI=2:
+# AIX DV Common - L4 UVM 框架
+# VLNV: aix:dv:common_uvm:1.0.0
+
+name: aix:dv:common_uvm:1.0.0
+description: >-
+  DV Common L4 UVM 框架：dv_base_test、dv_base_virtual_sequence、
+  dv_virtual_sequencer_base、env contract、reset sequence。
+  dv_base_test 只负责最小测试生命周期与公共服务装配，不实例化任何具体 VIP。
+
+filesets:
+  files_uvm:
+    depend:
+      - aix:dv:common_types:1.0.0
+      - aix:dv:common_runtime:1.0.0
+    file_type: systemVerilogSource
+    files:
+      - ../src/uvm/dv_env_contract_pkg.sv
+      - ../src/uvm/dv_vseqr_pkg.sv
+      - ../src/uvm/dv_base_vseq_pkg.sv
+      - ../src/uvm/dv_reset_seq_pkg.sv
+      - ../src/uvm/dv_base_test_pkg.sv
+
+  files_minimal_uvm:
+    file_type: systemVerilogSource
+    files:
+      - ../examples/minimal_uvm/dv_minimal_pkg.sv
+      - ../examples/minimal_uvm/dv_minimal_test.sv
+      - ../examples/minimal_uvm/dv_minimal_test_top.sv
+
+parameters:
+  DV_MINIMAL_SMOKE:
+    datatype: bool
+    paramtype: vlogdefine
+    default: 0
+    description: 启用 minimal smoke 测试路径
+
+targets:
+  default:
+    filesets:
+      - files_uvm
+
+  lint:
+    description: SystemVerilog 静态检查
+    filesets:
+      - files_uvm
+
+  compile:
+    description: 最小编译
+    filesets:
+      - files_uvm
+
+  smoke:
+    description: 聚合基本运行（minimal UVM example）
+    filesets:
+      - files_uvm
+      - files_minimal_uvm
+    toplevel:
+      - dv_minimal_test_top
+    parameters:
+      - DV_MINIMAL_SMOKE=1

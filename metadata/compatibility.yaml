@@ -1,0 +1,41 @@
+# AIX DV Common - 兼容性矩阵 V0.1
+# 记录 UVM profile 与仿真器组合的验证状态。
+# 原则：源码尽量使用公共标准 API，版本差异集中在 compat/ 薄层。
+
+compatibility_version: 0.1
+
+uvm_profiles:
+  uvm12_legacy:
+    description: 兼容现网商业仿真环境（UVM 1.2）
+    status: verified_on
+    simulators: [vcs, xcelium, questa]
+    notes: 使用 UVM 1.2 与 IEEE 1800.2 公共子集 API
+  uvm1800_2:
+    description: 新项目和长期演进目标（IEEE 1800.2）
+    status: not_verified
+    simulators: []
+    notes: 规划基线，尚未验证
+
+simulator_matrix:
+  vcs:
+    uvm12_legacy: verified
+    uvm1800_2: not_verified
+    priority: primary
+  xcelium:
+    uvm12_legacy: verified
+    uvm1800_2: not_verified
+    priority: primary
+  questa:
+    uvm12_legacy: verified
+    uvm1800_2: not_verified
+    priority: secondary
+  verilator:
+    uvm12_legacy: not_supported_subset
+    uvm1800_2: not_supported_subset
+    priority: periodic
+    notes: 仅支持非 UVM 可编译子集（rtl/、L0/L1 部分）
+
+toolchain_profiles:
+  nightly: [vcs, xcelium, questa]
+  periodic: [verilator]
+  release: [vcs, xcelium, questa]

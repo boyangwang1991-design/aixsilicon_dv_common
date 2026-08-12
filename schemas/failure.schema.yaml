@@ -1,0 +1,36 @@
+# AIX DV Common - Failure Schema V0.1
+# Failure Signature 推荐构成：
+#   message_id + component_path + transaction_type + normalized_location + root_cause_tag
+# 动态数值、时间戳、seed、地址等不稳定字段不直接进入 signature。
+$schema: "http://json-schema.org/draft-07/schema#"
+title: "dv-failure"
+type: object
+required: [message_id, component_path]
+additionalProperties: true
+properties:
+  message_id:
+    type: string
+    pattern: "^AIX_DV_[A-Z0-9_]+_[A-Z0-9_]+$"
+    description: 稳定 Message ID，禁止自由文本
+  component_path:
+    type: string
+    description: 例如 env.agent.monitor
+  transaction_type:
+    type: string
+  normalized_location:
+    type: string
+    description: 归一化位置（稳定代码位置）
+  root_cause_tag:
+    type: string
+  detail:
+    type: string
+    description: 人类可读详情（不用于聚类）
+  raw_location:
+    type: string
+    description: 原始位置（附加 context）
+  timestamp_ps:
+    type: integer
+  count:
+    type: integer
+    minimum: 1
+    description: 同 signature 聚合次数

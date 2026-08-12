@@ -1,0 +1,66 @@
+# AIX DV Common - Run Manifest Schema V0.1
+# 必须记录：仿真器/UVM/FuseSoC/顶层 Core/依赖 Core/seed/配置快照/RTL 与 VIP 版本/工具链/checksum。
+$schema: "http://json-schema.org/draft-07/schema#"
+title: "dv-run-manifest"
+type: object
+required: [schema_version]
+additionalProperties: true
+properties:
+  schema_version:
+    type: string
+    enum: ["1.0"]
+  simulator:
+    type: string
+  simulator_version:
+    type: string
+  uvm_profile:
+    type: string
+    enum: [uvm12_legacy, uvm1800_2]
+  uvm_version:
+    type: string
+  fusesoc_version:
+    type: string
+  edalize_version:
+    type: string
+  top_core_vlnv:
+    type: string
+  top_core_git_revision:
+    type: string
+  dependencies:
+    type: array
+    items:
+      type: object
+      required: [vlnv, git_revision]
+      properties:
+        vlnv:         { type: string }
+        git_revision: { type: string }
+  seed:
+    type: integer
+  derived_seed:
+    type: object
+    additionalProperties: { type: integer }
+  config_snapshot:
+    type: object
+    additionalProperties:
+      type: object
+      properties:
+        value:  { type: [string, integer, boolean, number] }
+        source: { type: string }
+  versions:
+    type: object
+    description: RTL、VIP、DV Common、RAL model 版本
+    additionalProperties: { type: string }
+  environment:
+    type: object
+    description: 容器/OS/toolchain profile
+    properties:
+      os_profile:      { type: string }
+      toolchain_profile:{ type: string }
+  artifacts:
+    type: object
+    description: 产物与 checksum
+    additionalProperties:
+      type: object
+      properties:
+        path:    { type: string }
+        sha256:  { type: string }
