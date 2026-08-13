@@ -93,3 +93,9 @@
 - [ ] CI 接入（PR/Nightly/Release 三段，见 `plan.md` 第 16 节；可将 `tools/run_checks.sh` 挂入 PR）
 - [ ] SBOM 与 license 治理流程落地
 - [ ] 一期验收标准核对（`plan.md` 第 25 节 15 项）
+
+## 跨仓一致性修订（2026-08-13）
+
+- [ ] 修订 plan.md 幽灵仓引用（eda-flow/eda-rules/hw-models → workflow/tool/techlib，ADR-0005）
+- [ ] 与 VIP `common/` 划界：协议无关机制全部收敛到本仓（R6）
+- [ ] Result/Manifest/Failure Schema 与 tool_repo 对齐为单一公共契约（C4）

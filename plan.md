@@ -1399,3 +1399,14 @@ DV Common应遵循以下最终原则：
 > HW Interface定义“接口是什么”，VIP定义“协议怎样激励和检查”，DV Common定义“验证环境怎样运行、比较、结束和留证”，IP/SoC项目定义“具体功能要验证什么”，EDA Flow定义“怎样规模化执行”。
 
 这五者边界固定后，IP设计和SoC集成验证才能真正形成可复用、可组合、可发布的工程体系。
+
+---
+
+## 28. 跨仓一致性修订（2026-08-13）
+
+> 依据 [`plans/cross-repo-architecture-review.md`](../../plans/cross-repo-architecture-review.md)（ADR-0003/0005/0006）。
+
+- 修正幽灵仓引用：`eda-flow`/`eda-rules`/`hw-models` 分别映射到 workflow（DAG/Gate）+ tool（Result adapter）、workflow `policies/`、techlib/model；本仓不建这三个仓；
+- 与 VIP 划界（R6）：协议/事务相关公共 → VIP `common/`；协议无关机制（log/status/scoreboard/clk_rst/result/manifest）→ 本仓；
+- Result/Manifest/Failure Schema 为跨仓公共契约，确定性实现归 `aixsilicon_tool_repo`（C4）；
+- 依赖方向重申（C5）：本仓不得反向依赖 VIP 与具体 IP。
