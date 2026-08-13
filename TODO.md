@@ -1,8 +1,9 @@
 # AIX DV Common — TODO List
 
-> 依据 `plan.md` 第 26 节「首批 TODO List」并结合当前仓库框架骨架状态整理。
+> 依据 `plan.md` 第 26 节「首批 TODO List」并结合当前仓库实际进度整理。
 > 状态：`[ ]` 待办 / `[-]` 进行中 / `[x]` 已完成
 > 所有里程碑与验收标准见 `plan.md` 第 25 节。
+> 最近更新：2026-08-13（P0 公共底座实现 + tools 工具层完成）
 
 ## 0. 已完成：仓库框架骨架（2026-08-12）
 
@@ -16,7 +17,18 @@
 - [x] rtl/ 与 dpi/ 骨架（clk_gen / rst_gen / sim_timeout / signal_probe_if）
 - [x] schemas/ 与 metadata/（6 个 Schema + 4 个元数据，YAML/JSON 校验通过）
 - [x] unit/ examples/ tests/ docs/ tools/ release/ 目录骨架
-- [x] VCS 编译/细化验证（非 UVM 层 + UVM 层均通过；仅剩环境 32 位库链接问题）
+- [x] VCS 编译/细化验证（非 UVM 层 + UVM 层均通过）
+
+## 0.2 已完成：P0 公共底座实现（2026-08-13）
+
+- [x] 非 UVM 单测 12/12 通过（VCS `-full64`）
+- [x] minimal UVM example 全链路运行（`fusesoc run --target=smoke --tool=vcs aix:dv:common_all` PASS）
+- [x] RTL 模块验证（新增 `tests/smoke/dv_rtl_smoke_tb.sv`，`rtl_smoke` target PASS）
+- [x] 修复 `dv_config_pkg` 布尔 plusarg、`dv_compare_pkg` wildcard/结构化 diff
+- [x] 修复 `metadata/message_ids.yaml` Message ID 格式
+- [x] 实现 tools 工具层（schema_check / dep_check / api_diff / result_check / doc_gen + run_checks.sh）
+- [x] `tools/run_checks.sh` 本地检查入口 ALL CHECKS PASSED
+- [x] `docs/api/` 34 份 API 文档已生成
 
 ## P0：立即启动，0～2 周
 
@@ -51,14 +63,13 @@
 - [ ] 实现 RAL base 与 CSR sequence 正式行为（smoke/reset/rw/bit-bash）
 - [ ] 接入 PeakRDL UVM RAL 输出链
 - [ ] 与 APB VIP 完成 adapter/predictor 连接（RAL adapter 契约）
-- [ ] 实现 in-order scoreboard（含 flush/drain/pending 诊断）
-- [ ] 实现结构化 diff 输出（比较失败打印字段级差异）
-- [ ] 实现 memory mirror/backdoor contract
+- [ ] 实现 in-order scoreboard 业务装配（matcher/flush/drain/pending 基础已实现并单测通过）
+- [x] 实现结构化 diff 输出（`dv_compare_pkg::dv_diff_fields` 字段级差异）
+- [x] 实现 memory mirror/backdoor contract 基础（`dv_memory_model` / `dv_mem_backdoor` 单测通过）
 - [ ] 完成 APB 寄存器 IP 穿刺（`examples/apb_csr_ip`）
 - [ ] 发布首个 Candidate 版本
 - [ ] 接入统一 Catalog（`metadata/components.yaml` 成熟度更新为 qualified 路径）
 - [ ] UVM Verification Skill 改为消费公共组件
-- [ ] 补齐 `tools/schema_check`、`tools/result_check` 实现
 
 ## P1/P2：两个季度
 
@@ -76,9 +87,9 @@
 ## 工程化完善（随阶段穿插）
 
 - [ ] `compat/` UVM 双 profile（uvm12_legacy / uvm1800_2）薄层
-- [ ] FuseSoC 后端的仿真运行验证（在 VCS 环境修复 32 位库链接问题或指定 64 位选项）
-- [ ] `docs/api/` 由 `tools/doc_gen` 生成
+- [x] FuseSoC 后端仿真运行验证（smoke / rtl_smoke 经 VCS 后端 PASS，`-full64` + 统一 `-timescale`）
+- [x] `docs/api/` 由 `tools/doc_gen` 生成（34 份）
 - [ ] `docs/migration/` 补齐旧环境迁移指南
-- [ ] CI 接入（PR/Nightly/Release 三段，见 `plan.md` 第 16 节）
+- [ ] CI 接入（PR/Nightly/Release 三段，见 `plan.md` 第 16 节；可将 `tools/run_checks.sh` 挂入 PR）
 - [ ] SBOM 与 license 治理流程落地
 - [ ] 一期验收标准核对（`plan.md` 第 25 节 15 项）
