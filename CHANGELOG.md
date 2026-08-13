@@ -17,6 +17,8 @@
 - 新增 `unit/`、`examples/`、`tests/`、`docs/`、`tools/`、`release/` 目录。
 - 新增 `tests/smoke/dv_rtl_smoke_tb.sv` RTL 模块 smoke 测试与 common_all `rtl_smoke` target。
 - 新增 `TODO.md` 项目任务清单。
+- 实现工具层：`tools/schema_check`、`tools/dep_check`、`tools/api_diff`、`tools/result_check`、`tools/doc_gen` 与统一入口 `tools/run_checks.sh`。
+- 新增 `docs/api/` 自动生成的 34 份组件 API 文档。
 
 ### 验证（P0 公共底座）
 
@@ -38,11 +40,18 @@
 - `uvm_reg::read` 双输出参数（status/value）调用。
 - 单元测试数据修正（masked/wildcard 位宽语义、byte-enable 字节对齐）。
 
-### 待办（P0 后续）
+### 工具层（本阶段完成）
+
+- [x] `tools/schema_check`：schemas/metadata 合法性 + Message ID 格式 + 组件 Catalog 结构。
+- [x] `tools/dep_check`：Core 依赖 DAG、环检测、禁用依赖（VIP/IP/SoC/Project）、源文件存在性。
+- [x] `tools/api_diff`：SV 公共符号提取与版本 diff（含 git 模式与 `--dump` 快照）。
+- [x] `tools/result_check`：test_result / run_manifest 结构校验。
+- [x] `tools/doc_gen`：SV 头注释 + 公共符号生成 Markdown API 文档。
+- [x] `tools/run_checks.sh`：本地检查总入口，`ALL CHECKS PASSED`。
+
+### 待办（P0 后续 / P1）
 
 - [ ] 实现 RAL base 与 CSR sequence 正式行为。
 - [ ] 接入 PeakRDL UVM RAL 输出链与 APB VIP adapter/predictor。
 - [ ] 完成 APB 寄存器 IP 穿刺（`examples/apb_csr_ip`）。
-- [ ] 建立 API diff 与 dependency check 工具实现。
-- [ ] 补齐 `tools/schema_check`、`tools/result_check` 实现。
 - [ ] `compat/` UVM 双 profile 薄层（uvm12_legacy / uvm1800_2）。

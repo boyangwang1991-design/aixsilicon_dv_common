@@ -2,12 +2,14 @@
 
 结果自校验（Gate G7 证据校验）。
 
-## 功能（规划）
+## 功能（已实现）
 
-- 校验 `test_result` 符合 `test_result.schema.yaml`；
-- 校验 `run_manifest` 符合 `run_manifest.schema.yaml`；
-- 校验 failure signature 稳定性（不同 seed 聚类一致）。
+- 校验 `test_result`：`schema_version`/`test`/`run` 必填，`status` 与 `exit_code` 枚举合法；
+- 校验 `run_manifest`：`schema_version`、`uvm_profile`、`seed` 类型合法。
 
-## 状态
+## 用法
 
-占位骨架。
+```bash
+python3 tools/result_check/check_result.py result.yaml
+python3 tools/result_check/check_result.py manifest.yaml --manifest
+```

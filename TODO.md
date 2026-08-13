@@ -40,9 +40,11 @@
 - [x] 实现 run manifest 正式输出（YAML，smoke 中已验证）
 - [x] 实现 queue/ID/compare utils 的完整行为与边界（单测修正并通过）
 - [x] 建立 unit/smoke target 并通过 FuseSoC+VCS 运行（12/12 单测 + smoke + rtl_smoke）
-- [ ] 建立 API diff 与 dependency check（对应 `tools/api_diff`、`tools/dep_check`）
+- [x] 建立 API diff 与 dependency check（`tools/api_diff`、`tools/dep_check` 已实现）
 - [x] 完成 minimal UVM example 全链路运行（`fusesoc run --target=smoke --tool=vcs aix:dv:common_all` PASS）
-- [ ] 补齐 `tools/schema_check`、`tools/result_check` 实现
+- [x] 补齐 `tools/schema_check`、`tools/result_check` 实现
+- [x] 实现 `tools/doc_gen` API 文档生成器（已生成 docs/api/ 34 份）
+- [x] 建立本地检查入口 `tools/run_checks.sh`（schema_check + dep_check + api_diff）
 
 ## P1：首个季度
 

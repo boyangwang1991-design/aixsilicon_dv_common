@@ -45,7 +45,7 @@ message_ids:
     affects_pass_fail: false
 
   # ---- WATCHDOG ----
-  - id: AIX_DV_DEADLOCK
+  - id: AIX_DV_WATCHDOG_DEADLOCK
     domain: WATCHDOG
     description: 线程停滞 / deadlock 观察
     severity: error

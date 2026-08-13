@@ -2,12 +2,17 @@
 
 API 差异检查（PR/Release 时运行）。
 
-## 功能（规划）
+## 功能（已实现）
 
-- 对比两个版本公共符号（class/function/task/field/macro/config key）；
-- 标记新增/删除/改名，按 SemVer 判断 Major/Minor/Patch；
-- 扫描下游是否使用 `internal` symbol。
+- 从 SV 源码提取公共符号（package/class/function/task/typedef/enum）；
+- 对比两个版本/目录，输出新增/删除符号；
+- git 模式：对比最近两次 commit 的 `src/` 符号；
+- `--dump`：输出当前全部符号快照（可归档）。
 
-## 状态
+## 用法
 
-占位骨架。
+```bash
+python3 tools/api_diff/api_diff.py                  # git HEAD~1..HEAD
+python3 tools/api_diff/api_diff.py old_dir new_dir  # 目录对比
+python3 tools/api_diff/api_diff.py --dump           # 符号快照
+```
